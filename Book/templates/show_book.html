@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <title>show books</title>
+        <style>
+            .anc{color: white;}
+        </style>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+        <body style="background: blueviolet;color:white;">
+            
+            <h1>Available Books</h1><br><hr>
+
+            <table border="2" style="width:60%; ">
+                <tr>
+                    <th>Book Id</th>
+                    <th>Book Name</th>
+                    <th>Book Price</th>
+                    <th>Book Qty</th>
+                    <th>Is book published</th>
+                    <th>Published Date</th>
+                    <th>Is Deleted </th>
+                    <th style="text-align:center">Action</th>    
+                </tr>
+                {% for i in all_books %}
+                <tr>
+                    <td>{{i.id}}</td>
+                    <td>{{i.name}}</td>
+                    <td>{{i.qty}}</td>
+                    <td>{{i.price}}</td>
+                    {% if i.is_published%}
+                    <td>yes</td>
+                    {% else %}
+                    <td>no</td>
+                    {% endif %}
+                    {% if i.is_published %}
+                    <td>{{i.published_date}}</td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
+                    <td>{{i.is_deleted}}</td>
+                    <td>
+                        {% if book_status != 'inactive' %}
+                            <a href="{% url 'edit' i.id %}" class="anc" >edit</a>&nbsp&nbsp
+                            <a href="{% url 'softdelete' i.id %}" class="anc">Soft Delete</a>&nbsp&nbsp
+                        {% endif %}
+                            <a href="{% url 'delbook' i.id %}" class="anc">Hard Delete</a>
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </table><br>
+            <a href="{% url 'home' %}" name="homepage" class="anc"> Home Page</a>&nbsp&nbsp&nbsp<a href="{% url 'activebooks' %}"class="anc">Show Active Books</a>&nbsp&nbsp&nbsp
+            <a href="{% url 'inactivebooks' %}" class="anc">Show InActive Books</a>
+        </body>
+    </head>
+</html>

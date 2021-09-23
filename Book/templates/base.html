@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>Add books</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+            <body style="background: blueviolet;color:white;">
+                <h>Book Library</h><br><br>
+                <hr>  
+                <form action="{% url 'home' %}" method="POST">
+                    {% csrf_token %}
+                    {% if single_book %}
+                    Book Id: <input type="number" name="id" value="{{single_book.id}}" readonly><br><br>
+                    {% else %}
+                    {% endif %}
+                    Book Name: <input type="text" name="nm" value={{single_book.name}}><br><br>
+                    Book Qty: <input type="number" name="qty"value={{single_book.qty}}><br><br>
+                    Book Price: <input type="number" name="price" value={{single_book.price}}><br><br>
+                    {% if single_book.is_published %}
+                    Is Published: Yes <input type="radio" name="ispub" value="Yes" checked> No <input type="radio" name="ispub" value='No'><br><br>
+                    {% else %}
+                    Is Published: Yes <input type="radio" name="ispub" value="Yes"> No <input type="radio" name="ispub" value='No' checked><br><br>
+                    {% endif %}
+                    {% if single_book %}
+                    <input type="Submit" value="Update Book">
+                    {% else %}
+                    <input type="Submit" value="Add Book">
+                    {% endif %}
+                </form>
+                <a href="{% url 'showbook' %}" style="color: white;" display="inline-block">Show Books</a>
+            </body>
+    </head>
+</html>
